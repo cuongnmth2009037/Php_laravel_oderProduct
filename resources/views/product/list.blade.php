@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css')}}"/>
     <link rel="stylesheet" href="{{url('Style/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>Document</title>
     <style>
         table {
@@ -40,6 +41,22 @@
 </head>
 <body>
 <div class="container-fluid">
+    @if(\Illuminate\Support\Facades\Session::has('success-msg'))
+        <div class="w3-panel w3-green w3-display-container">
+            <span onclick="this.parentElement.style.display='none'"
+                  class="w3-button w3-large w3-display-topright">&times;</span>
+                <h3>Action Success!</h3>
+            <p>{{\Illuminate\Support\Facades\Session::get('success-msg')}}</p>
+        </div>
+    @endif
+        @if(\Illuminate\Support\Facades\Session::has('error-msg'))
+        <div class="w3-panel w3-red w3-display-container">
+            <span onclick="this.parentElement.style.display='none'"
+                  class="w3-button w3-large w3-display-topright">&times;</span>
+                <h3>Action Fails!</h3>
+            <p>{{\Illuminate\Support\Facades\Session::get('error-msg')}}</p>
+        </div>
+    @endif
     <table class="table table-bordered">
         <thead>
         <tr>
@@ -67,7 +84,7 @@
         </tbody>
     </table>
 </div>
-<script src="Scripi/bootstrap.min.js"></script>
-<script src="Scripi/jquery.min.js"></script>
+<script src="Script/bootstrap.min.js"></script>
+<script src="Script/jquery.min.js"></script>
 </body>
 </html>

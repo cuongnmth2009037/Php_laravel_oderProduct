@@ -58,11 +58,19 @@
    <div class="container-fluid">
        <h2>Cart Information</h2>
        @if(\Illuminate\Support\Facades\Session::has('success-msg'))
-       <div class="alert w3-green alert-dismissible fade show" role="alert">
+       <div class="w3-panel w3-green w3-display-container">
+            <span onclick="this.parentElement.style.display='none'"
+             class="w3-button w3-large w3-display-topright">&times;</span>
            <h3>Action Success!</h3>
            <p>{{\Illuminate\Support\Facades\Session::get('success-msg')}}</p>
-           <button type="button" class="close" data-dismiss="alert">&times;
-           </button>
+       </div>
+       @endif
+       @if(\Illuminate\Support\Facades\Session::has('error-msg'))
+       <div class="w3-panel w3-red w3-display-container">
+            <span onclick="this.parentElement.style.display='none'"
+             class="w3-button w3-large w3-display-topright">&times;</span>
+           <h3>Action Fails!</h3>
+           <p>{{\Illuminate\Support\Facades\Session::get('error-msg')}}</p>
        </div>
        @endif
        <a href="/products">Back to product list</a>
@@ -88,23 +96,49 @@
                        <td><img src="{{$cartItem->images}}" width="100px" alt=""></td>
                        <td width="500px">{{$cartItem->name}}</td>
                        <td>{{$cartItem->origin}}</td>
-                       <td>{{$cartItem->price}}</td>
+                       <td>{{$cartItem->unitprice}}</td>
                        <td><input type="number" min="1" name="productQuantity" value="{{$cartItem->quantity}}"></td>
-                       <td>{{$cartItem->quantity * $cartItem->price}}</td>
+                       <td>{{$cartItem->quantity * $cartItem->unitprice}}</td>
                        <td>
                            <button class="update"><i class="fas fa-edit"></i>Update</button>
-                           <button class="delete" onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')" href=/cart/delete?productId={{$cartItem->id}}" ><i class="fas fa-trash"></i>Delete</button>
+                           <button class="delete"><a onclick="return confirm('Bạn có chắc muốn xóa sản phẩm này?')" href="/cart/delete?productId={{$cartItem->id}}"><i class="fas fa-trash"></i>Delete</a></button>
                        </td>
                    </tr>
                </form>
            @endforeach
            </tbody>
        </table>
+       <div class="w3-row" >
+           <div class="container">
+               <form class="container" action="/cart/save" method="post">
+                   @csrf
+                   <div class="form-group">
+                       <label>Fullname</label>
+                       <input class="form-control" type="text" name="fullName">
+                   </div>
+                  <div class="form-group">
+                      <label>Phone number</label>
+                      <input class="form-control" type="text" name="phone">
+                  </div>
+                 <div class="form-group">
+                     <label>Address</label>
+                     <textarea class="form-control" name="address"></textarea>
+                 </div>
+                   <div class="form-group">
+                       <label>Note</label>
+                       <textarea class="form-control" name="note"></textarea>
+                   </div>
+                   <div class="form-group">
+                       <button class="btn btn-primary">Submit order</button>
+                   </div>
+               </form>
+           </div>
+       </div>
        @else
-           Bạn Chưa có sản phẩm nào trong giỏ hàng, <a href="/products">click vào đây</a> để tiếp tục mua sắm
+           Bạn Chưa có sản phẩm nào trong giỏ hàng, <a href="/products"><u>click vào đây</u></a> để tiếp tục mua sắm
    </div>
 @endif
-<script src="Scripi/bootstrap.min.js"></script>
-<script src="Scripi/jquery.min.js"></script>
+<script src="Script/bootstrap.min.js"></script>
+<script src="Script/jquery.min.js"></script>
 </body>
 </html>
