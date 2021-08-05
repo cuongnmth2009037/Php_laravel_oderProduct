@@ -93,7 +93,7 @@ class ProductsController extends Controller
             $shoppingCart = Session::get('shoppingCart');
             unset($shoppingCart[$productId]);
             Session::put('shoppingCart',$shoppingCart);
-            Session::flash('error-msg','Xóa sản phẩm khỏi giỏ hàng thành công!');
+            Session::flash('success-msg','Xóa sản phẩm khỏi giỏ hàng thành công!');
             return redirect('/cart/show');
         }
     }
